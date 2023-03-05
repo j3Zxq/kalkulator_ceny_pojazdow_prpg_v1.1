@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Licznik ceny pojazdu</title>
+    <link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		// Słownik zawierający nazwy części i ich ceny
+		var cennik = {
+            'brak': 0,
+            'ECU_V1': 5250,
+            'ECU_V2': 9000,
+            'ECU_V3': 15000,
+			'ECU_V4': 20000,
+            'Turbo_V1': 7500,
+            'Turbo_V2': 12500,
+            'Turbo_V3': 20000,
+            'Turbo_V4': 25000,
+			'Turbo_V5': 30000,
+            'Zestaw.U': 25000,
+            'Zestaw.W': 50000,
+            'Zestaw.D': 75000,
+            'Zestaw.T': 125000,
+            'C.F.I_V1': 62500,
+            'C.F.I_V2': 75000,
+            'C.F.I_V3': 87500,
+            'C.F.I_V4': 112500,
+            'C.F.I_V5': 125000,
+            'MZN': 37500,
+            'Radio': 250,
+            'CB': 750,
+            'Ogranicznik': 1000,
+            'Wykrywacz_Fotoradarów': 1250,
+            'ABS': 7500,
+            'GZ': 16250,
+            'Hydra': 22500,
+            's1000': 3500,
+            's1001': 4500,
+            's1002': 3000,
+            's1003': 5000,
+            's1014': 2700,
+            's1015': 2000,
+            's1016': 2000,
+            's1023': 4250,
+            's1049': 2000,
+            's1050': 1600,
+            's1058': 1900,
+            's1060': 2750,
+            's1138': 4350,
+            's1139': 4750,
+            's1146': 3900,
+            's1147': 3750,
+            's1158': 3000,
+            's1162': 2800,
+            's1163': 5750,
+            '': 0,
+            '': 0,
+            '': 0,
+		};
+
+		// Funkcja obliczająca łączną cenę pojazdu
+        function obliczCene(cena_pojazdu) {
+    var wybrane_czesci = [];
+    var ecu_radios = document.getElementsByName('czesci_ecu');
+    var turbo_radios = document.getElementsByName('czesci_turbo');
+    var zestaw_radios = document.getElementsByName('czesci_zestaw');
+    var cfi_radios = document.getElementsByName('czesci_cfi');
+    var pozostale_radios = document.getElementsByName('czesci_pozostale');
+    var spoilery_radios = document.getElementsByName('czesci_spoilery');
+    
+    // Sprawdzenie, który radio button został wybrany w kategorii ECU
+    for (var i = 0; i < ecu_radios.length; i++) {
+        if (ecu_radios[i].checked) {
+            wybrane_czesci.push(ecu_radios[i].value);
+            break;
+        }
+    }
+    
+    // Sprawdzenie, który radio button został wybrany w kategorii Turbo
+    for (var i = 0; i < turbo_radios.length; i++) {
+        if (turbo_radios[i].checked) {
+            wybrane_czesci.push(turbo_radios[i].value);
+            break;
+				}
+			}
+                // Sprawdzenie, który radio button został wybrany w kategorii Zestawy
+    for (var i = 0; i < zestaw_radios.length; i++) {
+        if (zestaw_radios[i].checked) {
+            wybrane_czesci.push(zestaw_radios[i].value);
+            break;
+				}
+			}
+                // Sprawdzenie, który radio button został wybrany w kategorii C.F.I
+                for (var i = 0; i < cfi_radios.length; i++) {
+        if (cfi_radios[i].checked) {
+            wybrane_czesci.push(cfi_radios[i].value);
+            break;
+				}
+			}
+                            // Sprawdzenie, który radio button został wybrany w kategorii Pozostałe
+                            for (var i = 0; i < pozostale_radios.length; i++) {
+        if (pozostale_radios[i].checked) {
+            wybrane_czesci.push(pozostale_radios[i].value);
+            break;
+				}
+			}
+                                        // Sprawdzenie, który radio button został wybrany w kategorii Spoilery
+                                        for (var i = 0; i < spoilery_radios.length; i++) {
+        if (spoilery_radios[i].checked) {
+            wybrane_czesci.push(spoilery_radios[i].value);
+            break;
+				}
+			}
+
+
+
+
+
+            // Kalkulator
+			var lacznacena = 0;
+			for (var j = 0; j < wybrane_czesci.length; j++) {
+				lacznacena += cennik[wybrane_czesci[j]];
+			}
+			lacznacena += parseFloat(cena_pojazdu);
+			document.getElementById('cena').innerHTML = lacznacena + ' $';
+		}
+	</script>
+</head>
+<body>
+	<h1>Licznik ceny pojazdu</h1>
+	<form>
+        <label>Cena pojazdu: <input type="text" name="cena_pojazdu" id="cena_pojazdu"></label>
+        <h6 class="info">*cena nie moze byc podana w formacie "300k", tylko 300000</h6>
+        <h3>Tuning Mechaniczny</h3>
+        <h5>ECU:</h5>
+        <label><input type="radio" name="czesci_ecu" value="brak"> BRAK</label>
+        <label><input type="radio" name="czesci_ecu" value="ECU_V1"> ECU V1</label>
+        <label><input type="radio" name="czesci_ecu" value="ECU_V2"> ECU V2</label>
+        <label><input type="radio" name="czesci_ecu" value="ECU_V3"> ECU V3</label>
+        <label><input type="radio" name="czesci_ecu" value="ECU_V4"> ECU V4</label>
+        <h5>Turbo:</h5>
+        <label><input type="radio" name="czesci_turbo" value="brak"> BRAK</label>
+        <label><input type="radio" name="czesci_turbo" value="Turbo_V1"> Turbo V1</label>
+        <label><input type="radio" name="czesci_turbo" value="Turbo_V2"> Turbo V2</label>
+        <label><input type="radio" name="czesci_turbo" value="Turbo_V3"> Turbo V3</label>
+        <label><input type="radio" name="czesci_turbo" value="Turbo_V4"> Turbo V4</label>
+        <label><input type="radio" name="czesci_turbo" value="Turbo_V5"> Turbo V5</label>
+        <h5>Zestawy</h5>
+        <label><input type="radio" name="czesci_zestaw" value="brak"> BRAK</label>
+        <label><input type="radio" name="czesci_zestaw" value="Zestaw.U"> Zestaw Uliczny</label>
+        <label><input type="radio" name="czesci_zestaw" value="Zestaw.W"> Zestaw Wyścigowy</label>
+        <label><input type="radio" name="czesci_zestaw" value="Zestaw.D"> Zestaw Drifterski</label>
+        <label><input type="radio" name="czesci_zestaw" value="Zestaw.T"> Zestaw Torowy</label>
+        <h5>C.F.I</h5>
+        <label><input type="radio" name="czesci_cfi" value="brak"> BRAK</label>
+        <label><input type="radio" name="czesci_cfi" value="C.F.I_V1"> C.F.I V1</label>
+        <label><input type="radio" name="czesci_cfi" value="C.F.I_V2"> C.F.I V2</label>
+        <label><input type="radio" name="czesci_cfi" value="C.F.I_V3"> C.F.I V3</label>
+        <label><input type="radio" name="czesci_cfi" value="C.F.I_V4"> C.F.I V4</label>
+        <label><input type="radio" name="czesci_cfi" value="C.F.I_V5"> C.F.I V5</label>
+        <h5>Pozostałe</h5>
+        <label><input type="checkbox" name="czesci_pozostale" value="MZN"> Moduł Zmiany Napędu</label>
+        <label><input type="checkbox" name="czesci_pozostale" value="Radio"> Radio</label>
+        <label><input type="checkbox" name="czesci_pozostale" value="CB"> CB-Radio</label>
+        <label><input type="checkbox" name="czesci_pozostale" value="Ogranicznik"> Ogranicznik</label>
+        <label><input type="checkbox" name="czesci_pozostale" value="Wykrywacz_Fotoradarów"> Wykrywacz Fotoradarów</label>
+        <label><input type="checkbox" name="czesci_pozostale" value="ABS"> System ABS</label>
+        <label><input type="radio" name="czesci_pozostale" value="GZ"> Gwintowane Zawieszenie</label>
+        <label><input type="radio" name="czesci_pozostale" value="Hydra"> Hydraulika</label>
+        <label><input type="radio" name="czesci_pozostale" value="brak"> Brak Hydrauliki i Gwintowanego Zawieszenia</label>
+        <h3>Tuning Wizualny</h3>
+        <h5>Spoilery</h5>
+        <label><input type="radio" name="czesci_spoilery" value="brak"> BRAK</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1000"> Spoiler ID: 1000</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1001"> Spoiler ID: 1001</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1002"> Spoiler ID: 1002</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1003"> Spoiler ID: 1003</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1014"> Spoiler ID: 1014</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1015"> Spoiler ID: 1015</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1016"> Spoiler ID: 1016</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1023"> Spoiler ID: 1023</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1049"> Spoiler ID: 1049</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1050"> Spoiler ID: 1050</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1058"> Spoiler ID: 1058</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1060"> Spoiler ID: 1060</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1138"> Spoiler ID: 1138</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1139"> Spoiler ID: 1139</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1146"> Spoiler ID: 1146</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1147"> Spoiler ID: 1147</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1158"> Spoiler ID: 1158</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1162"> Spoiler ID: 1162</label>
+        <label><input type="radio" name="czesci_spoilery" value="s1163"> Spoiler ID: 1163</label>
+		<button type="button" onclick="obliczCene(document.getElementById('cena_pojazdu').value)">Oblicz cenę</button>
+        <h6 class="info-cena">*przed obliczeniem ceny upewnij się, że wpisałeś cenę czystego pojazdu!</h6>
+	</form>
+	<p>Łączna cena pojazdu wynosi: <span id="cena"></span></p>
+</body>
+</html>
